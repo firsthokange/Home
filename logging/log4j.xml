@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %t %m   [%p][%c::%M(%L)]%n" />
+        </layout>
+    </appender>
+    
+<!--     <appender name="WATCHER" class="org.apache.log4j.DailyRollingFileAppender"> -->
+<!--         <param name="file" value="d:/techsphere/cpbesbLog/watcher.log" /> -->
+<!--         <param name="datePattern" value="yyyy-MM-dd" /> -->
+<!--         <layout class="org.apache.log4j.PatternLayout"> -->
+<!--             <param name="ConversionPattern" value="%d{dd-MM-yyyy HH:mm:ss,SSS} %t %m   %n" /> -->
+<!--         </layout> -->
+<!--         <filter class="org.apache.log4j.varia.LevelRangeFilter"> -->
+<!--             <param name="levelMin" value="WARN" /> -->
+<!--             <param name="levelMax" value="WARN" /> -->
+<!--         </filter> -->
+<!--     </appender> -->
+    
+    <appender name="ERROR" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="d:/techsphere/cpbesbLog/error.log" />
+        <param name="datePattern" value="yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{dd-MM-yyyy HH:mm:ss,SSS} %t %m   [%p][%c::%M(%L)]%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="ERROR" />
+            <param name="levelMax" value="ERROR" />
+        </filter>
+    </appender>
+    
+    <appender name="ALL" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="d:/techsphere/cpbesbLog/cpbesb.log" />
+        <param name="datePattern" value="yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- ใคร ทำอะไร ที่ไหน -->
+            <param name="ConversionPattern" value="%d{dd-MM-yyyy HH:mm:ss} %t %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="DEBUG" />
+            <param name="levelMax" value="FATAL" />
+        </filter>
+    </appender>
+
+    <logger name="net.techsphere.esb.logging.LoggingInterceptor" additivity="true">
+        <level value="DEBUG" />
+        <appender-ref ref="ALL" />
+    </logger>
+    
+    <logger name="net.techsphere.esb.config" additivity="true">
+        <level value="DEBUG" />
+        <appender-ref ref="ALL" />
+    </logger>
+    
+    <logger name="org.springframework">
+        <!-- DO NOT USE DEBUG it write manyyyyyyyyyyyyyyyyyyy... log -->
+        <level value="ERROR" />
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ERROR" />
+    </logger>
+    
+    <logger name="org.hibernate.cfg">
+        <!-- DO NOT USE DEBUG it write manyyyyyyyyyyyyyyyyyyy... log -->
+        <level value="ERROR" />
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ERROR" />
+    </logger>
+        
+    <logger name="net.techsphere.esb.controller" additivity="true">
+        <level value="DEBUG" />
+        <appender-ref ref="ALL" />
+        <appender-ref ref="ERROR" />
+    </logger>
+    
+    <logger name="net.techsphere.esb.session.SessionFilter" additivity="true">
+        <level value="DEBUG" />
+        <appender-ref ref="ALL" />
+        <appender-ref ref="ERROR" />
+    </logger>
+        
+<!--     <logger name="net.techsphere.esb.config.Watcher" additivity="true"> -->
+<!--         <level value="WARN" /> -->
+<!--         <appender-ref ref="WATCHER" /> -->
+<!--     </logger> -->
+
+    <root>
+        <!-- DO NOT USE DEBUG it write manyyyyyyyyyyyyyyyyyyy... log -->
+        <level value="INFO" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</log4j:configuration>
